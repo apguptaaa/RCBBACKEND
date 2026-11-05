@@ -34,7 +34,7 @@ The source is split by responsibility: `routes/`, `controllers/`, and `validator
    ```
 
    `db:baseline` records the original schema as applied; it does not recreate or delete tables. Run `npm run db:migrate` after baselining to apply later additive migrations (including customer carts, favorites, and order inquiries). Prisma migrations are recorded in `_prisma_migrations`. The configured admin is inserted if absent; rerunning the seed does not reset an existing admin password.
-5. Start the API with `npm run dev`. The Angular dev server in `..\RCBPRO` proxies `/api` to port 3000.
+5. Start the API with `npm run dev`. Start only one backend instance per port. If port 3000 is already in use, stop the existing backend with `Ctrl+C` in its terminal, or choose another port in PowerShell with `$env:PORT=3001; npm run dev`. The Angular dev server in `..\RCBPRO` proxies `/api` to port 3000 by default.
 
 To open Prisma Studio, first make sure `DATABASE_URL` is set in `RCBBACKEND\.env`, then run `npx prisma studio` from `RCBBACKEND`.
 
