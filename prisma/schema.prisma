@@ -1,0 +1,185 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String   @db.VarChar(80)
+  email        String   @unique @db.VarChar(254)
+  passwordHash String   @map("password_hash")
+  role         String   @default("customer") @db.VarChar(16)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+  favorites    Favorite[]
+  cart         Cart?
+  inquiries    OrderInquiry[]
+
+  @@map("users")
+}
+
+model Category {
+  id            String        @id
+  name          String        @db.VarChar(120)
+  image         String        @default("")
+  active        Boolean       @default(true)
+  createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime      @default(now()) @map("updated_at") @db.Timestamptz(6)
+  subcategories Subcategory[]
+  products      Product[]
+
+  @@map("categories")
+}
+
+model Subcategory {
+  id         String    @id
+  categoryId String    @map("category_id")
+  name       String    @db.VarChar(120)
+  image      String    @default("")
+  active     Boolean   @default(true)
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  category   Category  @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+  products   Product[]
+
+  @@unique([categoryId, name])
+  @@map("subcategories")
+}
+
+model Product {
+  id            Int          @id @default(autoincrement())
+  categoryId    String       @map("category_id")
+  subcategoryId String?      @map("subcategory_id")
+  name          String       @db.VarChar(120)
+  price         Decimal      @db.Decimal(10, 2)
+  oldPrice      Decimal      @default(0) @map("old_price") @db.Decimal(10, 2)
+  rating        Decimal      @default(5) @db.Decimal(2, 1)
+  reviews       Int          @default(0)
+  badge         String       @default("") @db.VarChar(80)
+  veg           Boolean      @default(true)
+  image         String
+  description   String       @default("")
+  active        Boolean      @default(true)
+  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime     @default(now()) @map("updated_at") @db.Timestamptz(6)
+  category      Category     @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+  subcategory   Subcategory? @relation(fields: [subcategoryId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  addons        Addon[]
+  favorites     Favorite[]
+
+  @@index([categoryId, active], map: "products_category_active_idx")
+  @@map("products")
+}
+
+model Addon {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId   Int?     @map("product_id")
+  name        String   @db.VarChar(120)
+  description String   @default("")
+  price       Decimal  @db.Decimal(10, 2)
+  image       String   @default("")
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+  product     Product? @relation(fields: [productId], references: [id], onUpdate: NoAction, onDelete: SetNull)
+
+  @@map("addons")
+}
+
+model Banner {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title     String   @db.VarChar(160)
+  subtitle  String   @default("") @db.VarChar(240)
+  image     String
+  link      String   @default("/")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@map("banners")
+}
+
+model Review {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @db.VarChar(80)
+  quote     String   @db.VarChar(1000)
+  avatar    String   @default("") @db.VarChar(7000000)
+  rating    Int      @db.SmallInt
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@index([active, createdAt])
+  @@map("reviews")
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email        String   @unique @db.VarChar(254)
+  subscribedAt DateTime @default(now()) @map("subscribed_at") @db.Timestamptz(6)
+
+  @@map("newsletter_subscribers")
+}
+
+model CustomOrder {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customerName    String   @map("customer_name") @db.VarChar(80)
+  email           String   @db.VarChar(254)
+  phone           String   @db.VarChar(32)
+  occasion        String   @db.VarChar(80)
+  flavour         String   @db.VarChar(80)
+  servingSize     String   @map("serving_size") @db.VarChar(40)
+  celebrationDate DateTime @map("celebration_date") @db.Date
+  designIdea      String   @map("design_idea") @db.VarChar(2000)
+  status          String   @default("pending") @db.VarChar(16)
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("custom_orders")
+}
+
+model Favorite {
+  userId    String   @map("user_id") @db.Uuid
+  productId Int      @map("product_id")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([userId, productId])
+  @@map("favorites")
+}
+
+model Cart {
+  userId    String   @id @map("user_id") @db.Uuid
+  items     Json     @default("[]")
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("carts")
+}
+
+model OrderInquiry {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId       String?  @map("user_id") @db.Uuid
+  customerName String?  @map("customer_name") @db.VarChar(80)
+  email        String?  @db.VarChar(254)
+  phone        String?  @db.VarChar(32)
+  kind         String   @db.VarChar(16)
+  details      Json
+  status       String   @default("pending") @db.VarChar(16)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user         User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt])
+  @@map("order_inquiries")
+}
+
+model SchemaMigration {
+  version   String   @id
+  appliedAt DateTime @default(now()) @map("applied_at") @db.Timestamptz(6)
+
+  @@map("schema_migrations")
+}
