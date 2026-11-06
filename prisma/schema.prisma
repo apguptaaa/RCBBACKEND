@@ -125,6 +125,15 @@ model NewsletterSubscriber {
   @@map("newsletter_subscribers")
 }
 
+model PromoClaim {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  phone     String   @unique @db.VarChar(10)
+  offer     String   @db.VarChar(32)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("promo_claims")
+}
+
 model CustomOrder {
   id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   customerName    String   @map("customer_name") @db.VarChar(80)

@@ -405,6 +405,7 @@ export const ModelName = {
   Banner: 'Banner',
   Review: 'Review',
   NewsletterSubscriber: 'NewsletterSubscriber',
+  PromoClaim: 'PromoClaim',
   CustomOrder: 'CustomOrder',
   Favorite: 'Favorite',
   Cart: 'Cart',
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "category" | "subcategory" | "product" | "addon" | "banner" | "review" | "newsletterSubscriber" | "customOrder" | "favorite" | "cart" | "orderInquiry" | "schemaMigration"
+    modelProps: "user" | "category" | "subcategory" | "product" | "addon" | "banner" | "review" | "newsletterSubscriber" | "promoClaim" | "customOrder" | "favorite" | "cart" | "orderInquiry" | "schemaMigration"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1021,6 +1022,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PromoClaim: {
+      payload: Prisma.$PromoClaimPayload<ExtArgs>
+      fields: Prisma.PromoClaimFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PromoClaimFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PromoClaimFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>
+        }
+        findFirst: {
+          args: Prisma.PromoClaimFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PromoClaimFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>
+        }
+        findMany: {
+          args: Prisma.PromoClaimFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>[]
+        }
+        create: {
+          args: Prisma.PromoClaimCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>
+        }
+        createMany: {
+          args: Prisma.PromoClaimCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PromoClaimCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>[]
+        }
+        delete: {
+          args: Prisma.PromoClaimDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>
+        }
+        update: {
+          args: Prisma.PromoClaimUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>
+        }
+        deleteMany: {
+          args: Prisma.PromoClaimDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PromoClaimUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PromoClaimUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>[]
+        }
+        upsert: {
+          args: Prisma.PromoClaimUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromoClaimPayload>
+        }
+        aggregate: {
+          args: Prisma.PromoClaimAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePromoClaim>
+        }
+        groupBy: {
+          args: Prisma.PromoClaimGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PromoClaimGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PromoClaimCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PromoClaimCountAggregateOutputType> | number
+        }
+      }
+    }
     CustomOrder: {
       payload: Prisma.$CustomOrderPayload<ExtArgs>
       fields: Prisma.CustomOrderFieldRefs
@@ -1541,6 +1616,16 @@ export const NewsletterSubscriberScalarFieldEnum = {
 export type NewsletterSubscriberScalarFieldEnum = (typeof NewsletterSubscriberScalarFieldEnum)[keyof typeof NewsletterSubscriberScalarFieldEnum]
 
 
+export const PromoClaimScalarFieldEnum = {
+  id: 'id',
+  phone: 'phone',
+  offer: 'offer',
+  createdAt: 'createdAt'
+} as const
+
+export type PromoClaimScalarFieldEnum = (typeof PromoClaimScalarFieldEnum)[keyof typeof PromoClaimScalarFieldEnum]
+
+
 export const CustomOrderScalarFieldEnum = {
   id: 'id',
   customerName: 'customerName',
@@ -1894,6 +1979,7 @@ export type GlobalOmitConfig = {
   banner?: Prisma.BannerOmit
   review?: Prisma.ReviewOmit
   newsletterSubscriber?: Prisma.NewsletterSubscriberOmit
+  promoClaim?: Prisma.PromoClaimOmit
   customOrder?: Prisma.CustomOrderOmit
   favorite?: Prisma.FavoriteOmit
   cart?: Prisma.CartOmit

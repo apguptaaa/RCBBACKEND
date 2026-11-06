@@ -59,6 +59,7 @@ export const ModelName = {
   Banner: 'Banner',
   Review: 'Review',
   NewsletterSubscriber: 'NewsletterSubscriber',
+  PromoClaim: 'PromoClaim',
   CustomOrder: 'CustomOrder',
   Favorite: 'Favorite',
   Cart: 'Cart',
@@ -191,6 +192,16 @@ export const NewsletterSubscriberScalarFieldEnum = {
 } as const
 
 export type NewsletterSubscriberScalarFieldEnum = (typeof NewsletterSubscriberScalarFieldEnum)[keyof typeof NewsletterSubscriberScalarFieldEnum]
+
+
+export const PromoClaimScalarFieldEnum = {
+  id: 'id',
+  phone: 'phone',
+  offer: 'offer',
+  createdAt: 'createdAt'
+} as const
+
+export type PromoClaimScalarFieldEnum = (typeof PromoClaimScalarFieldEnum)[keyof typeof PromoClaimScalarFieldEnum]
 
 
 export const CustomOrderScalarFieldEnum = {

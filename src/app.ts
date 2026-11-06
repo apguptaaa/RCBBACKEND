@@ -19,6 +19,7 @@ import errorHandler from './middleware/errorHandler.js';
 import notFoundHandler from './middleware/notFoundHandler.js';
 import healthRoutes from './routes/health.routes.js';
 import uploadsRoutes from './routes/uploads.routes.js';
+import promoRoutes from './routes/promo.routes.js';
 
 const app = express();
 const allowedOrigins = (process.env.CORS_ORIGIN ?? 'http://localhost:4200')
@@ -48,6 +49,7 @@ app.use('/api/v1/order-inquiries', orderInquiriesRoutes);
 app.use('/api/v1/reviews', reviewsRoutes);
 app.use('/api/v1/admin/reviews', adminReviewsRoutes);
 app.use('/api/v1/admin/uploads', uploadsRoutes);
+app.use('/api/v1/promo', promoRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 

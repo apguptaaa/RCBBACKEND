@@ -82,6 +82,11 @@ export type Review = Prisma.ReviewModel
  */
 export type NewsletterSubscriber = Prisma.NewsletterSubscriberModel
 /**
+ * Model PromoClaim
+ * 
+ */
+export type PromoClaim = Prisma.PromoClaimModel
+/**
  * Model CustomOrder
  * 
  */
