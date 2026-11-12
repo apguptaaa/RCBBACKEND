@@ -46,6 +46,7 @@ export type AddonMinAggregateOutputType = {
   active: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type AddonMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type AddonMaxAggregateOutputType = {
   active: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type AddonCountAggregateOutputType = {
@@ -70,6 +72,7 @@ export type AddonCountAggregateOutputType = {
   active: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -94,6 +97,7 @@ export type AddonMinAggregateInputType = {
   active?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type AddonMaxAggregateInputType = {
@@ -106,6 +110,7 @@ export type AddonMaxAggregateInputType = {
   active?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type AddonCountAggregateInputType = {
@@ -118,6 +123,7 @@ export type AddonCountAggregateInputType = {
   active?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -217,6 +223,7 @@ export type AddonGroupByOutputType = {
   active: boolean
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   _count: AddonCountAggregateOutputType | null
   _avg: AddonAvgAggregateOutputType | null
   _sum: AddonSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type AddonWhereInput = {
   active?: Prisma.BoolFilter<"Addon"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Addon"> | Date | string | null
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
 }
 
@@ -265,6 +273,7 @@ export type AddonOrderByWithRelationInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
 }
 
@@ -281,6 +290,7 @@ export type AddonWhereUniqueInput = Prisma.AtLeast<{
   active?: Prisma.BoolFilter<"Addon"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Addon"> | Date | string | null
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
 }, "id">
 
@@ -294,6 +304,7 @@ export type AddonOrderByWithAggregationInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AddonCountOrderByAggregateInput
   _avg?: Prisma.AddonAvgOrderByAggregateInput
   _max?: Prisma.AddonMaxOrderByAggregateInput
@@ -314,6 +325,7 @@ export type AddonScalarWhereWithAggregatesInput = {
   active?: Prisma.BoolWithAggregatesFilter<"Addon"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Addon"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Addon"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Addon"> | Date | string | null
 }
 
 export type AddonCreateInput = {
@@ -325,6 +337,7 @@ export type AddonCreateInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   product?: Prisma.ProductCreateNestedOneWithoutAddonsInput
 }
 
@@ -338,6 +351,7 @@ export type AddonUncheckedCreateInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type AddonUpdateInput = {
@@ -349,6 +363,7 @@ export type AddonUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   product?: Prisma.ProductUpdateOneWithoutAddonsNestedInput
 }
 
@@ -362,6 +377,7 @@ export type AddonUncheckedUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AddonCreateManyInput = {
@@ -374,6 +390,7 @@ export type AddonCreateManyInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type AddonUpdateManyMutationInput = {
@@ -385,6 +402,7 @@ export type AddonUpdateManyMutationInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AddonUncheckedUpdateManyInput = {
@@ -397,6 +415,7 @@ export type AddonUncheckedUpdateManyInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AddonListRelationFilter = {
@@ -419,6 +438,7 @@ export type AddonCountOrderByAggregateInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type AddonAvgOrderByAggregateInput = {
@@ -436,6 +456,7 @@ export type AddonMaxOrderByAggregateInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type AddonMinOrderByAggregateInput = {
@@ -448,6 +469,7 @@ export type AddonMinOrderByAggregateInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type AddonSumOrderByAggregateInput = {
@@ -514,6 +536,7 @@ export type AddonCreateWithoutProductInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type AddonUncheckedCreateWithoutProductInput = {
@@ -525,6 +548,7 @@ export type AddonUncheckedCreateWithoutProductInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type AddonCreateOrConnectWithoutProductInput = {
@@ -566,6 +590,7 @@ export type AddonScalarWhereInput = {
   active?: Prisma.BoolFilter<"Addon"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Addon"> | Date | string | null
 }
 
 export type AddonCreateManyProductInput = {
@@ -577,6 +602,7 @@ export type AddonCreateManyProductInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type AddonUpdateWithoutProductInput = {
@@ -588,6 +614,7 @@ export type AddonUpdateWithoutProductInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AddonUncheckedUpdateWithoutProductInput = {
@@ -599,6 +626,7 @@ export type AddonUncheckedUpdateWithoutProductInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AddonUncheckedUpdateManyWithoutProductInput = {
@@ -610,6 +638,7 @@ export type AddonUncheckedUpdateManyWithoutProductInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -624,6 +653,7 @@ export type AddonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   product?: boolean | Prisma.Addon$productArgs<ExtArgs>
 }, ExtArgs["result"]["addon"]>
 
@@ -637,6 +667,7 @@ export type AddonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   product?: boolean | Prisma.Addon$productArgs<ExtArgs>
 }, ExtArgs["result"]["addon"]>
 
@@ -650,6 +681,7 @@ export type AddonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   product?: boolean | Prisma.Addon$productArgs<ExtArgs>
 }, ExtArgs["result"]["addon"]>
 
@@ -663,9 +695,10 @@ export type AddonSelectScalar = {
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type AddonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "name" | "description" | "price" | "image" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["addon"]>
+export type AddonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "name" | "description" | "price" | "image" | "active" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["addon"]>
 export type AddonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.Addon$productArgs<ExtArgs>
 }
@@ -691,6 +724,7 @@ export type $AddonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     active: boolean
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
   }, ExtArgs["result"]["addon"]>
   composites: {}
 }
@@ -1124,6 +1158,7 @@ export interface AddonFieldRefs {
   readonly active: Prisma.FieldRef<"Addon", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Addon", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Addon", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Addon", 'DateTime'>
 }
     
 

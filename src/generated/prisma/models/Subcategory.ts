@@ -32,6 +32,7 @@ export type SubcategoryMinAggregateOutputType = {
   active: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type SubcategoryMaxAggregateOutputType = {
@@ -42,6 +43,7 @@ export type SubcategoryMaxAggregateOutputType = {
   active: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type SubcategoryCountAggregateOutputType = {
@@ -52,6 +54,7 @@ export type SubcategoryCountAggregateOutputType = {
   active: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -64,6 +67,7 @@ export type SubcategoryMinAggregateInputType = {
   active?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type SubcategoryMaxAggregateInputType = {
@@ -74,6 +78,7 @@ export type SubcategoryMaxAggregateInputType = {
   active?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type SubcategoryCountAggregateInputType = {
@@ -84,6 +89,7 @@ export type SubcategoryCountAggregateInputType = {
   active?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -167,6 +173,7 @@ export type SubcategoryGroupByOutputType = {
   active: boolean
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   _count: SubcategoryCountAggregateOutputType | null
   _min: SubcategoryMinAggregateOutputType | null
   _max: SubcategoryMaxAggregateOutputType | null
@@ -198,6 +205,7 @@ export type SubcategoryWhereInput = {
   active?: Prisma.BoolFilter<"Subcategory"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Subcategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Subcategory"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Subcategory"> | Date | string | null
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
   products?: Prisma.ProductListRelationFilter
 }
@@ -210,6 +218,7 @@ export type SubcategoryOrderByWithRelationInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.CategoryOrderByWithRelationInput
   products?: Prisma.ProductOrderByRelationAggregateInput
 }
@@ -226,6 +235,7 @@ export type SubcategoryWhereUniqueInput = Prisma.AtLeast<{
   active?: Prisma.BoolFilter<"Subcategory"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Subcategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Subcategory"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Subcategory"> | Date | string | null
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
   products?: Prisma.ProductListRelationFilter
 }, "id" | "categoryId_name">
@@ -238,6 +248,7 @@ export type SubcategoryOrderByWithAggregationInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SubcategoryCountOrderByAggregateInput
   _max?: Prisma.SubcategoryMaxOrderByAggregateInput
   _min?: Prisma.SubcategoryMinOrderByAggregateInput
@@ -254,6 +265,7 @@ export type SubcategoryScalarWhereWithAggregatesInput = {
   active?: Prisma.BoolWithAggregatesFilter<"Subcategory"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Subcategory"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Subcategory"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Subcategory"> | Date | string | null
 }
 
 export type SubcategoryCreateInput = {
@@ -263,6 +275,7 @@ export type SubcategoryCreateInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   category: Prisma.CategoryCreateNestedOneWithoutSubcategoriesInput
   products?: Prisma.ProductCreateNestedManyWithoutSubcategoryInput
 }
@@ -275,6 +288,7 @@ export type SubcategoryUncheckedCreateInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutSubcategoryInput
 }
 
@@ -285,6 +299,7 @@ export type SubcategoryUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   category?: Prisma.CategoryUpdateOneRequiredWithoutSubcategoriesNestedInput
   products?: Prisma.ProductUpdateManyWithoutSubcategoryNestedInput
 }
@@ -297,6 +312,7 @@ export type SubcategoryUncheckedUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   products?: Prisma.ProductUncheckedUpdateManyWithoutSubcategoryNestedInput
 }
 
@@ -308,6 +324,7 @@ export type SubcategoryCreateManyInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type SubcategoryUpdateManyMutationInput = {
@@ -317,6 +334,7 @@ export type SubcategoryUpdateManyMutationInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SubcategoryUncheckedUpdateManyInput = {
@@ -327,6 +345,7 @@ export type SubcategoryUncheckedUpdateManyInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SubcategoryListRelationFilter = {
@@ -352,6 +371,7 @@ export type SubcategoryCountOrderByAggregateInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type SubcategoryMaxOrderByAggregateInput = {
@@ -362,6 +382,7 @@ export type SubcategoryMaxOrderByAggregateInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type SubcategoryMinOrderByAggregateInput = {
@@ -372,6 +393,7 @@ export type SubcategoryMinOrderByAggregateInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type SubcategoryNullableScalarRelationFilter = {
@@ -444,6 +466,7 @@ export type SubcategoryCreateWithoutCategoryInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   products?: Prisma.ProductCreateNestedManyWithoutSubcategoryInput
 }
 
@@ -454,6 +477,7 @@ export type SubcategoryUncheckedCreateWithoutCategoryInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutSubcategoryInput
 }
 
@@ -494,6 +518,7 @@ export type SubcategoryScalarWhereInput = {
   active?: Prisma.BoolFilter<"Subcategory"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Subcategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Subcategory"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Subcategory"> | Date | string | null
 }
 
 export type SubcategoryCreateWithoutProductsInput = {
@@ -503,6 +528,7 @@ export type SubcategoryCreateWithoutProductsInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   category: Prisma.CategoryCreateNestedOneWithoutSubcategoriesInput
 }
 
@@ -514,6 +540,7 @@ export type SubcategoryUncheckedCreateWithoutProductsInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type SubcategoryCreateOrConnectWithoutProductsInput = {
@@ -539,6 +566,7 @@ export type SubcategoryUpdateWithoutProductsInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   category?: Prisma.CategoryUpdateOneRequiredWithoutSubcategoriesNestedInput
 }
 
@@ -550,6 +578,7 @@ export type SubcategoryUncheckedUpdateWithoutProductsInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SubcategoryCreateManyCategoryInput = {
@@ -559,6 +588,7 @@ export type SubcategoryCreateManyCategoryInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type SubcategoryUpdateWithoutCategoryInput = {
@@ -568,6 +598,7 @@ export type SubcategoryUpdateWithoutCategoryInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   products?: Prisma.ProductUpdateManyWithoutSubcategoryNestedInput
 }
 
@@ -578,6 +609,7 @@ export type SubcategoryUncheckedUpdateWithoutCategoryInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   products?: Prisma.ProductUncheckedUpdateManyWithoutSubcategoryNestedInput
 }
 
@@ -588,6 +620,7 @@ export type SubcategoryUncheckedUpdateManyWithoutCategoryInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -629,6 +662,7 @@ export type SubcategorySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Subcategory$productsArgs<ExtArgs>
   _count?: boolean | Prisma.SubcategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -642,6 +676,7 @@ export type SubcategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subcategory"]>
 
@@ -653,6 +688,7 @@ export type SubcategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subcategory"]>
 
@@ -664,9 +700,10 @@ export type SubcategorySelectScalar = {
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type SubcategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "categoryId" | "name" | "image" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["subcategory"]>
+export type SubcategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "categoryId" | "name" | "image" | "active" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["subcategory"]>
 export type SubcategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Subcategory$productsArgs<ExtArgs>
@@ -693,6 +730,7 @@ export type $SubcategoryPayload<ExtArgs extends runtime.Types.Extensions.Interna
     active: boolean
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
   }, ExtArgs["result"]["subcategory"]>
   composites: {}
 }
@@ -1125,6 +1163,7 @@ export interface SubcategoryFieldRefs {
   readonly active: Prisma.FieldRef<"Subcategory", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Subcategory", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Subcategory", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Subcategory", 'DateTime'>
 }
     
 

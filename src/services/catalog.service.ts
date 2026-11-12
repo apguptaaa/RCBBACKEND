@@ -36,6 +36,8 @@ function mapProduct(
     veg: product.veg,
     image: product.image,
     description: product.description,
+    flavours: product.flavours,
+    unit_type: product.unitType === 'count' ? 'count' : 'weight',
     active: product.active
   };
 }
@@ -44,30 +46,56 @@ const slug = (value: string): string =>
   value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || crypto.randomUUID();
 
 export async function getCatalog(includeInactive = false): Promise<CatalogRecord> {
+  const productWhere: Prisma.ProductWhereInput = includeInactive
+    ? { deletedAt: null }
+    : {
+      deletedAt: null,
+      active: true,
+      category: { deletedAt: null },
+      OR: [
+        { subcategoryId: null },
+        { subcategory: { is: { active: true, deletedAt: null } } }
+      ]
+    };
+  const categoryWhere: Prisma.CategoryWhereInput = includeInactive
+    ? { deletedAt: null }
+    : { deletedAt: null, active: true };
+  const subcategoryWhere: Prisma.SubcategoryWhereInput = includeInactive
+    ? { deletedAt: null }
+    : { deletedAt: null, active: true, category: { active: true, deletedAt: null } };
+  const addonWhere: Prisma.AddonWhereInput = includeInactive
+    ? { deletedAt: null }
+    : {
+      deletedAt: null,
+      active: true,
+      OR: [
+        { productId: null },
+        { product: { is: { deletedAt: null, active: true, category: { deletedAt: null } } } }
+      ]
+    };
+  const bannerWhere: Prisma.BannerWhereInput = includeInactive
+    ? { deletedAt: null }
+    : { deletedAt: null, active: true };
   const [products, categories, subcategories, addons, banners] = await Promise.all([
     prisma.product.findMany({
-      where: includeInactive ? undefined : {
-        active: true,
-        category: { active: true },
-        OR: [{ subcategoryId: null }, { subcategory: { is: { active: true } } }]
-      },
+      where: productWhere,
       include: productRelations,
       orderBy: { id: 'asc' }
     }),
     prisma.category.findMany({
-      where: includeInactive ? undefined : { active: true },
+      where: categoryWhere,
       orderBy: { name: 'asc' }
     }),
     prisma.subcategory.findMany({
-      where: includeInactive ? undefined : { active: true },
+      where: subcategoryWhere,
       orderBy: { name: 'asc' }
     }),
     prisma.addon.findMany({
-      where: includeInactive ? undefined : { active: true },
+      where: addonWhere,
       orderBy: { name: 'asc' }
     }),
     prisma.banner.findMany({
-      where: includeInactive ? undefined : { active: true },
+      where: bannerWhere,
       orderBy: { createdAt: 'desc' }
     })
   ]);
@@ -96,7 +124,7 @@ export async function getCatalog(includeInactive = false): Promise<CatalogRecord
 
 async function findCategory(name: string) {
   const category = await prisma.category.findFirst({
-    where: { name: { equals: name, mode: 'insensitive' } }
+    where: { name: { equals: name, mode: 'insensitive' }, deletedAt: null }
   });
   if (!category) throw new AppError('Choose a valid category.', 400);
   return category;
@@ -104,13 +132,13 @@ async function findCategory(name: string) {
 
 async function findSubcategory(categoryId: string, name: string) {
   if (!name) return null;
-  const subcategory = await prisma.subcategory.findFirst({ where: { categoryId, name } });
+  const subcategory = await prisma.subcategory.findFirst({ where: { categoryId, name, deletedAt: null } });
   if (!subcategory) throw new AppError('Choose a valid subcategory.', 400);
   return subcategory;
 }
 
 async function getProduct(id: number): Promise<ProductRecord> {
-  const product = await prisma.product.findUnique({ where: { id }, include: productRelations });
+  const product = await prisma.product.findFirst({ where: { id, deletedAt: null }, include: productRelations });
   if (!product) throw new AppError('Product not found.', 404);
   return mapProduct(product);
 }
@@ -130,6 +158,8 @@ export async function saveProduct(input: ProductInput, id?: number): Promise<Pro
     veg: input.veg,
     image: input.image,
     description: input.description,
+    flavours: input.flavours,
+    unitType: input.unit_type,
     active: input.active
   };
 
@@ -142,7 +172,8 @@ export async function saveProduct(input: ProductInput, id?: number): Promise<Pro
 }
 
 export async function deleteProduct(id: number): Promise<void> {
-  await prisma.product.delete({ where: { id } });
+  const result = await prisma.product.updateMany({ where: { id, deletedAt: null }, data: { deletedAt: new Date() } });
+  if (!result.count) throw new AppError('Product not found.', 404);
 }
 
 export async function saveCategory(input: CategoryInput, id?: string): Promise<CategoryRecord> {
@@ -154,7 +185,8 @@ export async function saveCategory(input: CategoryInput, id?: string): Promise<C
 }
 
 export async function deleteCategory(id: string): Promise<void> {
-  await prisma.category.delete({ where: { id } });
+  const result = await prisma.category.updateMany({ where: { id, deletedAt: null }, data: { deletedAt: new Date() } });
+  if (!result.count) throw new AppError('Category not found.', 404);
 }
 
 export async function saveSubcategory(input: SubcategoryInput, id?: string): Promise<SubcategoryRecord> {
@@ -189,7 +221,8 @@ export async function saveSubcategory(input: SubcategoryInput, id?: string): Pro
 }
 
 export async function deleteSubcategory(id: string): Promise<void> {
-  await prisma.subcategory.delete({ where: { id } });
+  const result = await prisma.subcategory.updateMany({ where: { id, deletedAt: null }, data: { deletedAt: new Date() } });
+  if (!result.count) throw new AppError('Subcategory not found.', 404);
 }
 
 export async function saveAddon(input: AddonInput, id?: string): Promise<AddonRecord> {
@@ -216,7 +249,8 @@ export async function saveAddon(input: AddonInput, id?: string): Promise<AddonRe
 }
 
 export async function deleteAddon(id: string): Promise<void> {
-  await prisma.addon.delete({ where: { id } });
+  const result = await prisma.addon.updateMany({ where: { id, deletedAt: null }, data: { deletedAt: new Date() } });
+  if (!result.count) throw new AppError('Add-on not found.', 404);
 }
 
 export async function saveBanner(input: BannerInput, id?: string): Promise<BannerRecord> {
@@ -241,5 +275,6 @@ export async function saveBanner(input: BannerInput, id?: string): Promise<Banne
 }
 
 export async function deleteBanner(id: string): Promise<void> {
-  await prisma.banner.delete({ where: { id } });
+  const result = await prisma.banner.updateMany({ where: { id, deletedAt: null }, data: { deletedAt: new Date() } });
+  if (!result.count) throw new AppError('Banner not found.', 404);
 }

@@ -11,6 +11,8 @@ export interface ProductRecord {
   veg: boolean;
   image: string;
   description: string;
+  flavours: string[];
+  unit_type: 'weight' | 'count';
   active: boolean;
 }
 

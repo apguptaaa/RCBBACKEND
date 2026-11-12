@@ -3,7 +3,7 @@ import { email, text, uuid } from './common.validator.js';
 
 const cartDetails = z.object({
   items: z.array(z.object({
-    product_id: z.number().int().positive(),
+    product_id: z.number().int().min(-1000).max(1_000_000_000),
     name: text(120),
     quantity: z.number().int().min(1).max(99),
     variant: z.string().trim().max(300).optional(),
@@ -16,7 +16,7 @@ const cartDetails = z.object({
 });
 
 const enquiryDetails = z.object({
-  product_id: z.number().int().positive().nullable(),
+  product_id: z.number().int().min(-1000).max(1_000_000_000).nullable(),
   weight: text(20),
   design: text(80),
   design_details: z.string().trim().max(300).optional(),

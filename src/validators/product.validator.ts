@@ -13,6 +13,14 @@ export const productSchema = z.object({
   veg: z.boolean().default(true),
   image: z.string().trim().min(1).max(7_000_000),
   description: z.string().trim().max(4000).default(''),
+  flavours: z.array(text(80)).min(1).max(20).default([
+    'Belgian chocolate',
+    'Vanilla berry',
+    'Red velvet',
+    'Butterscotch',
+    'Fresh fruit'
+  ]),
+  unit_type: z.enum(['weight', 'count']).default('weight'),
   active: z.boolean().default(true)
 });
 

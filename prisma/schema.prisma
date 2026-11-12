@@ -29,6 +29,7 @@ model Category {
   active        Boolean       @default(true)
   createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt     DateTime      @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt     DateTime?     @map("deleted_at") @db.Timestamptz(6)
   subcategories Subcategory[]
   products      Product[]
 
@@ -43,6 +44,7 @@ model Subcategory {
   active     Boolean   @default(true)
   createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamptz(6)
   category   Category  @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Restrict)
   products   Product[]
 
@@ -63,9 +65,12 @@ model Product {
   veg           Boolean      @default(true)
   image         String
   description   String       @default("")
+  flavours      String[]     @default([])
+  unitType      String       @default("weight") @map("unit_type") @db.VarChar(16)
   active        Boolean      @default(true)
   createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt     DateTime     @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt     DateTime?    @map("deleted_at") @db.Timestamptz(6)
   category      Category     @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Restrict)
   subcategory   Subcategory? @relation(fields: [subcategoryId], references: [id], onUpdate: Cascade, onDelete: SetNull)
   addons        Addon[]
@@ -85,6 +90,7 @@ model Addon {
   active      Boolean  @default(true)
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
   product     Product? @relation(fields: [productId], references: [id], onUpdate: NoAction, onDelete: SetNull)
 
   @@map("addons")
@@ -99,6 +105,7 @@ model Banner {
   active    Boolean  @default(true)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
 
   @@map("banners")
 }
@@ -112,6 +119,7 @@ model Review {
   active    Boolean  @default(true)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
 
   @@index([active, createdAt])
   @@map("reviews")
