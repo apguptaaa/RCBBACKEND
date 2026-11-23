@@ -23,7 +23,7 @@ import promoRoutes from './routes/promo.routes.js';
 import adminTrashRoutes from './routes/admin-trash.routes.js';
 
 const app = express();
-const allowedOrigins = (process.env.CORS_ORIGIN ?? 'http://localhost:52311')
+const allowedOrigins = (process.env.CORS_ORIGIN ?? 'http://localhost:4200')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
